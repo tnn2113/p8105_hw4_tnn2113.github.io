@@ -1,0 +1,23 @@
+---
+title: "About me"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+## Education
+
+I received a B.S in Biochemistry from the City College of New York in 2018 and I'm currently a first year M.S in Epidemiology at Mailman School of Public Health, Columbia University.  
+
+## Research
+
+For the past 2 years, I have been working to advance my wet-lab skills and simulation skills in both the molecular view and environmental perspective. 
+
+Working in the neuroscience lab enhanced my detail-orientation and patience. This work was to study how certain adhesion molecules affect the spatial distribution of inhibitory neurons within the cortex. Global loss of these adhesion molecules changes the density and spatial distribution of certain subtypes of inhibitory neurons but not others. These changes could mean in terms of cortical function and psychiatric disease. 
+
+In the simulation lab, I learned more about how to design a research project and the importance of collaboration and data collection. The major goal was to develop plans to measure the amount of PM 1.0, PM 2.5 and PM 10 with major focus on PM2.5 in the subway station air in Brooklyn using PM 2.5 Air Quality Sensor with Arduino board. We also collected more data of PM2.5 and CO2 concentration underground with minute time scale. We hoped that these data may ultimately serve to study how PM2.5 concentration relates to commuters’ respiratory health. 
+
+
+
+
