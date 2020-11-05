@@ -1,5 +1,5 @@
 ---
-title: "Dashboard"
+title: "Plotly"
 output: 
   html_document:
     toc: true
@@ -55,5 +55,24 @@ nyc_inspections =
   bind_rows() 
 ```
 
+The following dataset contains a list of restaurants that fall into 3 categories of restaurant violations: general violation, critical violation, and public health hazards. 
+We want to look at the restaurants with their score contain at least 2 points which is the minimum point for a particular violation. 
 
+```{r}
+nyc_inspections_df = 
+  nyc_inspections %>% 
+  select(dba, boro, street, zipcode, cuisine_description, critical_flag, score, grade, latitude, longitude) %>% 
+  filter(score >= 2) %>% 
+  drop_na(grade)
+```
 
+## scatterplot
+
+```{r}
+nyc_inspections_df %>% 
+  filter(grade == c("A", "B", "C")) %>% 
+  mutate(text_label = str_c("Name: ", dba, "\nGrade: ", grade)) %>%
+  plot_ly(
+    x = ~latitude, y = ~longitude, color = ~grade, text = ~text_label,
+    type = "scatter", mode = "markers")
+```
