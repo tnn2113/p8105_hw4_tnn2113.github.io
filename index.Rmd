@@ -13,7 +13,7 @@ Mailman School of Public Health, Columbia University
 Get to know more [about me](about.html)!
 
 ## Homework
-See my solution to [homework 4](hw4_problem2.html). 
+See my solution to [homework 4](hw4_plotly.html). Watch my [dashboard](hw4_dashboard.html).
 
 ## Biography
 

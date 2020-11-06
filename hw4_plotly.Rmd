@@ -1,0 +1,104 @@
+---
+title: "Plotly"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+We're going to look at Instacart data.
+
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r}
+get_all_inspections = function(url) {
+  
+  all_inspections = vector("list", length = 0)
+  
+  loop_index = 1
+  chunk_size = 50000
+  DO_NEXT = TRUE
+  
+  while (DO_NEXT) {
+    message("Getting data, page ", loop_index)
+    
+    all_inspections[[loop_index]] = 
+      GET(url,
+          query = list(`$order` = "zipcode",
+                       `$limit` = chunk_size,
+                       `$offset` = as.integer((loop_index - 1) * chunk_size)
+                       )
+          ) %>%
+      content("text") %>%
+      fromJSON() %>%
+      as_tibble()
+    
+    DO_NEXT = dim(all_inspections[[loop_index]])[1] == chunk_size
+    loop_index = loop_index + 1
+  }
+  
+  all_inspections
+  
+}
+
+url = "https://data.cityofnewyork.us/resource/43nn-pn8j.json"
+
+nyc_inspections = 
+  get_all_inspections(url) %>%
+  bind_rows() 
+```
+
+The following dataset contains a list of restaurants in Manhattan that fall into 3 categories of restaurant violations: general violation, critical violation, and public health hazards. 
+We want to look at the restaurants with grades `A`, `B`, and `C`, and exclude the rest including Z, N, P, and N/A. 
+
+```{r}
+nyc_inspections_df = 
+  nyc_inspections %>% 
+  select(boro, cuisine_description, inspection_date, violation_code, score, grade) %>% 
+  filter(
+    grade %in% c("A", "B", "C"),
+    boro == "Manhattan") %>% 
+  drop_na(grade)
+```
+
+The following box plot represents the score distribution in each grade. Based on the plot, Grade A has a distribution of score of 0-13, grade B has a score of 14-27, and grade C has a score of greater than 27. 
+
+```{r}
+nyc_inspections_df %>% 
+  plot_ly(
+    x = ~grade, y = ~score, color = ~grade,
+    type = "box", colors = "viridis")
+```
+
+
+The bar plot below displays the number of violation codes of restaurants in Manhattan. 
+`10F` is the most popular one, it means `Non-food contact surface improperly constructed. Unacceptable material used. Non-food contact surface or equipment improperly maintained and/or not properly sealed, raised, spaced or movable to allow accessibility for cleaning on all sides, above and underneath the unit`.
+
+
+```{r}
+nyc_inspections_df %>%
+  count(violation_code) %>% 
+  mutate(violation_code = fct_reorder(violation_code, n)) %>% 
+  plot_ly(
+    x = ~n, y = ~violation_code, color = ~violation_code,
+    type = "bar", colors = "viridis")
+```
+
+The following plot presents the distribution of score based on the grade. 
+
+```{r}
+score_distribution = 
+  nyc_inspections_df %>% 
+  ggplot(aes(x = score, fill = grade)) + 
+  geom_density(alpha = .4, adjust = .5, color = "blue")
+
+ggplotly(score_distribution)
+```
+
