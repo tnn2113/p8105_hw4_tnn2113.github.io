@@ -12,6 +12,9 @@ Mailman School of Public Health, Columbia University
 ## About
 Get to know more [about me](about.html)!
 
+## Homework
+See my solution to [homework 4](hw4_problem2.html). 
+
 ## Biography
 
 I'm Tu, first year M.S Epidemiology student. 
