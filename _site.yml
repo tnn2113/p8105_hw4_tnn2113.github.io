@@ -2,6 +2,9 @@ name: "Yay internet!"
 output_dir: "."
 navbar:
   title: "Home"
+  left:
+    - text: "Homework"
+    - href: hw4_problem2.html
   right:
     - icon: fa-linkedin fa-lg
       href: https://www.linkedin.com/in/tu-nguyen-950964a4/
