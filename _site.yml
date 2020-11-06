@@ -3,6 +3,10 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
+    - text: "Plotly"
+      href: hw4_plotly.html
+    - text: "Dashboard"
+      href: hw4_dashboard.html
     - icon: fa-linkedin fa-lg
       href: https://www.linkedin.com/in/tu-nguyen-950964a4/
     - icon: fa-envelope fa-lg
