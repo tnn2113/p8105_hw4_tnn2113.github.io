@@ -72,12 +72,10 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
-score_distribution = 
-  nyc_inspections_df %>% 
-  ggplot(aes(x = score, fill = grade)) + 
-  geom_density(alpha = .4, adjust = .5, color = "blue")
-
-ggplotly(score_distribution)
+nyc_inspections_df %>% 
+  plot_ly(
+    x = ~grade, y = ~score, color = ~grade,
+    type = "box", colors = "viridis")
 ```
 
 Column {data-width=350}
@@ -97,8 +95,11 @@ nyc_inspections_df %>%
 ### Chart C
 
 ```{r}
-nyc_inspections_df %>% 
-  plot_ly(
-    x = ~grade, y = ~score, color = ~grade,
-    type = "box", colors = "viridis")
+score_distribution = 
+  nyc_inspections_df %>% 
+  ggplot(aes(x = score, fill = grade)) + 
+  geom_density(alpha = .4, adjust = .5, color = "blue")
+
+ggplotly(score_distribution)
 ```
+
